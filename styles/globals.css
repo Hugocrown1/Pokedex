@@ -18,7 +18,7 @@
   pointer-events: none;
 }
 
-.main:before {
+/* .main:before {
   background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
   position: absolute;
   content: "";
@@ -38,13 +38,14 @@
   top: 0;
   opacity: 0.4;
   filter: invert(1);
-}
+} */
 
 .gradient {
   height: fit-content;
   z-index: 3;
   width: 100%;
   max-width: 640px;
+  
   background-image: radial-gradient(
       at 27% 37%,
       hsla(215, 98%, 61%, 1) 0px,
