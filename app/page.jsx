@@ -1,12 +1,26 @@
+'use client'
+
 import logo from '../public/assets/images/pokefondo.png'
 import pikachu from '../public/assets/images/pikachu.gif'
 import arcanine from '../public/assets/images/arcanine.gif'
 import Image from 'next/image'
 import Searcher from '@components/Searcher'
-
+import pokedexService from '@services/pokedex'
+import { useEffect, useState } from 'react'
 
 
 const Home = () => {
+  const [pokemonList, setPokemonList] = useState('')
+
+  useEffect(() => {
+    pokedexService.getAll().then(pokemon => {
+      console.log(pokemon);
+      setPokemonList(pokemon)
+      
+    })
+    
+  }, [])
+  
   
   
   return (
