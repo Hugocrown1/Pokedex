@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const Searcher = () => {
+const Searcher = ({getPokeInfo}) => {
     
 
     const [inputValue, setInputValue] = useState('');
@@ -10,14 +10,10 @@ const Searcher = () => {
     const handleKeyDown = (event) => {
       if (event.key === 'Enter') {
         
-        handleEnterPress();
+        getPokeInfo(inputValue)
       }
     };
   
-    const handleEnterPress = () => {
-      // Aquí puedes realizar la lógica que deseas cuando se presiona Enterr
-      console.log('Enter presionado. Valor del input:', inputValue);
-    };
   
     return (
       <input
