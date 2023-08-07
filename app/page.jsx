@@ -12,8 +12,10 @@ import { useEffect, useState } from 'react'
 
 
 const Home = () => {
+  //Utilizar la lista de pokemon para algo
   const [pokemonList, setPokemonList] = useState([])
   const [pokemon, setPokemon] = useState(null)
+  const [pokeSpecie, setPokeSpecie] = useState(null)
 
   useEffect(() => {
     pokedexService.getAll().then(pokemon => {
@@ -24,9 +26,12 @@ const Home = () => {
   }, [])
 
   const getPokeInfo = async (name) => {
+    //Implementar manejo de errores
     const pokemonData = await pokemonService.getByName(name)
+    const pokemonSpecie = await pokemonService.getSpecie(name)
     
     setPokemon(pokemonData)
+    setPokeSpecie(pokemonSpecie)
     
   }
 
@@ -41,7 +46,7 @@ const Home = () => {
         <Image className="w-20 h-20" alt="Arcanine" src={arcanine} />
       </div>
       <Searcher getPokeInfo={getPokeInfo}/>
-      {pokemon && <PokeCard pokemon={pokemon}/>}
+      {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie}/>}
       
     </div>
     

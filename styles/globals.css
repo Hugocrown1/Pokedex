@@ -169,3 +169,97 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+.type-dragon {
+  background-image: linear-gradient(to bottom, #1a73c0 50%, #ca3945 50%);
+}
+
+.type-flying {
+  background-color: #8FA9DF;
+}
+
+.type-normal {
+  background-color: #929AA2;
+}
+
+.type-steel {
+  background-color: #598EA2;
+}
+
+.type-water {
+  background-color: #4D90D5;
+}
+
+.type-bug {
+  background-color: #91C029;
+}
+
+.type-electric {
+  background-color: #F4D339;
+}
+
+.type-ghost {
+  background-color: #5169AE;
+}
+
+.type-fire {
+  background-color: #FE9C52;
+}
+
+.type-fairy {
+  background-color: #EB90E7;
+}
+
+.type-ice {
+  background-color: #74CFC0;
+}
+
+.type-fighting {
+  background-color: #CE3E6A;
+}
+
+.type-grass {
+  background-color: #62BC5A;
+}
+
+.type-psychic {
+  background-color: #F97279;
+}
+
+.type-rock {
+  background-color: #C6B88C;
+}
+
+.type-dark {
+  background-color: #5A5265;
+}
+
+.type-ground {
+  background-color: #D87941;
+}
+
+.type-poison {
+  background-color: #A96AC9;
+}
+
+
+
+
+
+.type-icon {
+  display: inline-block;
+  width: 66px;
+  margin-bottom: 4px;
+  margin-right: 4px;
+  border: 1px solid #a3a3a3;
+  border-radius: 4px;
+  border: 1px solid rgba(14, 13, 13, 0.932);
+  color: #fff;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0,0,0,.7);
+  text-transform: uppercase;
+  transition: opacity .4s;
+}
