@@ -26,14 +26,18 @@ const Home = () => {
   }, [])
 
   const getPokeInfo = async (name) => {
-    //Implementar manejo de errores
-    const pokemonData = await pokemonService.getByName(name)
-    const pokemonSpecie = await pokemonService.getSpecie(name)
-    
-    setPokemon(pokemonData)
-    setPokeSpecie(pokemonSpecie)
-    
-  }
+    try {
+        const pokemonData = await pokemonService.getByName(name);
+        const pokemonSpecie = await pokemonService.getSpecie(name);
+
+        setPokemon(pokemonData);
+        setPokeSpecie(pokemonSpecie);
+    } catch (error) {
+        
+        console.error("Error obteniendo información del Pokémon:", error);
+       
+    }
+};
 
   
   return (
@@ -45,7 +49,10 @@ const Home = () => {
         <Image prority="true" className='w-1/2' alt="Pokelogo" src={logo} />
         <Image className="w-20 h-20" alt="Arcanine" src={arcanine} />
       </div>
-      <Searcher getPokeInfo={getPokeInfo}/>
+
+      <div className='w-3/4'>
+        <Searcher getPokeInfo={getPokeInfo} pokemonList={pokemonList}/>
+      </div>
       {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie}/>}
       
     </div>
