@@ -1,5 +1,7 @@
-// import '@styles/globals.css';
+
 import '../styles/globals.css'
+import {Providers} from "./providers";
+
 
 
 export const metadata = {
@@ -10,16 +12,30 @@ export const metadata = {
 
 const RootLayout = ({children}) => {
   return (
-    <html lang="en">
+    <html lang="en" >
         
-        <body className='bg-[#10002b]'>
-            <div className='main'>
-                <div className='gradient'/>
-            </div>
-            <main className='app'>
-                {children}
-            </main>
-        </body>
+        
+          <body>
+          
+          
+          
+            
+                      <div className='main bg-[#0c0c0c]'>
+                          <div className='gradient'/>
+                      </div>
+                      <main className='app '>
+            
+                              <Providers>
+                                {children}
+                              </Providers>
+            
+                      </main>
+          
+          
+          
+          
+          </body>
+        
 
     </html>
   )

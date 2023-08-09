@@ -9,10 +9,13 @@ import pokedexService from '@services/pokedex'
 import pokemonService from '@services/pokemon'
 import PokeCard from '@components/PokeCard'
 import { useEffect, useState } from 'react'
+import {Input} from "@nextui-org/input";
+
+
 
 
 const Home = () => {
-  //Utilizar la lista de pokemon para algo
+  
   const [pokemonList, setPokemonList] = useState([])
   const [pokemon, setPokemon] = useState(null)
   const [pokeSpecie, setPokeSpecie] = useState(null)
@@ -41,23 +44,26 @@ const Home = () => {
 
   
   return (
-    <>
+    
     
     <div className='flex flex-col items-center justify-center'>
       <div className="flex items-center justify-center mt-10 mb-10">
         <Image className="w-20 h-1/2" alt="Pikachu" src={pikachu} />
         <Image prority="true" className='w-1/2' alt="Pokelogo" src={logo} />
         <Image className="w-20 h-20" alt="Arcanine" src={arcanine} />
+    
       </div>
+          
 
-      <div className='w-3/4'>
-        <Searcher getPokeInfo={getPokeInfo} pokemonList={pokemonList}/>
-      </div>
+        {pokemonList && (<Searcher getPokeInfo={getPokeInfo} pokemonList={pokemonList}/>)}
+      
+        
+      
       {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie}/>}
       
     </div>
     
-    </>
+    
   )
 }
 
