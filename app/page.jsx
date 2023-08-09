@@ -19,6 +19,7 @@ const Home = () => {
   const [pokemonList, setPokemonList] = useState([])
   const [pokemon, setPokemon] = useState(null)
   const [pokeSpecie, setPokeSpecie] = useState(null)
+  const [results, setResults] = useState([])
 
   useEffect(() => {
     pokedexService.getAll().then(pokemon => {
@@ -27,6 +28,19 @@ const Home = () => {
     })
     
   }, [])
+
+  const handleChange = (e) => {
+    
+
+    if(!e.target.value.trim()) return setResults([])
+
+    const filteredPokemon = pokemonList.filter(pokemon =>
+      pokemon.pokemon_species.name.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    setResults(filteredPokemon)
+
+  }
 
   const getPokeInfo = async (name) => {
     try {
@@ -55,10 +69,7 @@ const Home = () => {
       </div>
           
 
-        {pokemonList && (<Searcher getPokeInfo={getPokeInfo} pokemonList={pokemonList}/>)}
-      
-        
-      
+      {pokemonList && (<Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange}/>)}
       {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie}/>}
       
     </div>

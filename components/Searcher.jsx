@@ -1,16 +1,16 @@
 'use client'
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 
 import { SearchIcon } from "./SearchIcon";
 import {Spinner} from "@nextui-org/react";
 import {Input} from "@nextui-org/react";
 
-const Searcher = ({getPokeInfo, pokemonList}) => {
+const Searcher = ({getPokeInfo, results, onChange }) => {
   
     const resultContainer = useRef(null)
   
-    const [results, setResults] = useState([])
+    
     const [focusedIndex, setFocusedIndex] = useState(-1)
     const [inputValue, setInputValue] = useState('');
     const [showResults, setShowResults] = useState(false)
@@ -32,6 +32,24 @@ const Searcher = ({getPokeInfo, pokemonList}) => {
     
       
     }, [results])
+
+    const handleSelection = (selectedIndex) => {
+      const selectedItem = results[selectedIndex]
+      if (!selectedItem) return resetSearchComplete();
+      getPokeInfo && getPokeInfo(selectedItem.pokemon_species.name.toLowerCase())
+      const pokeName = formatPokeName(selectedItem.pokemon_species.name)
+      setInputValue(pokeName)
+      resetSearchComplete()
+    }
+
+    const resetSearchComplete = useCallback(() => {
+      setFocusedIndex(-1);
+      setShowResults(false);
+    }, []);
+
+    const formatPokeName = (name) => {
+      return name.charAt(0).toUpperCase() + name.slice(1)
+    }
     
     
 
@@ -47,24 +65,21 @@ const Searcher = ({getPokeInfo, pokemonList}) => {
 
       if (key === 'Enter') {
         
-
-        getPokeInfo(inputValue.toLowerCase())
+        e.preventDefault()
+        handleSelection(focusedIndex);
+        
       }
 
       setFocusedIndex(nextIndexCount)
 
     };
 
+    
+
     const handleChange = (e) => {
       setInputValue(e.target.value)
 
-      if(!e.target.value.trim()) return setResults([])
-
-      const filteredPokemon = pokemonList.filter(pokemon =>
-        pokemon.pokemon_species.name.toLowerCase().includes(inputValue.toLowerCase())
-      );
-
-      setResults(filteredPokemon)
+      onChange && onChange(e)
 
     }
 
@@ -76,17 +91,18 @@ const Searcher = ({getPokeInfo, pokemonList}) => {
     
   
     return (
-      <div className="w-3/4 h-3/4 items-center justify-center">
-      <div tabIndex={1} onKeyDown={handleKeyDown} className="relative">
+      <div className="z-10 w-3/4 h-3/4 items-center justify-center">
+      <div tabIndex={1} onBlur={resetSearchComplete} onKeyDown={handleKeyDown} className="relative">
         <Input
         
-        type="text"
+          type="text"
           onChange={handleChange}
           value={inputValue}
           onKeyDown={handleKeyDown}
           aria-describedby="search-input"
           id="search-input"
           isClearable
+          onClear={() => setInputValue('')}
           radius="sm"
           
           classNames={{
@@ -111,25 +127,28 @@ const Searcher = ({getPokeInfo, pokemonList}) => {
             ],
           }}
           placeholder="Buscar Pokémon..."
+
           startContent={
             <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
         {/* Search result container */}
-         { showResults && (<div className="  w-full absolute mt-2 p-2 text-white font-medium bg-black shadow-lg rounded-lg rounded-br max-h-56 overflow-y-auto ">
+         { showResults && (<div className="  w-full absolute mt-2 p-2 text-white font-medium bg-black/95 shadow-lg rounded-lg rounded-br max-h-56 overflow-y-auto ">
         {results.map((pokemon, index) => {
           const pokeName = pokemon.pokemon_species.name
           const pokeNumber = pokemon.entry_number
 
           return <div 
+          
           ref={index === focusedIndex ? resultContainer : null} 
           key={index}
+          onMouseDown={() => handleSelection(index)}
           style={{
             backgroundColor:
             index === focusedIndex ? "rgba(230, 230, 230, 0.1)" : "",
           }} 
-          className="cursor-pointer flex-between rounded-md border-b-1 border-zinc-700 hover:bg-zinc-700 hover:bg.opacity-10  p-2">
-            <span>{pokeName.charAt(0).toUpperCase() + pokeName.slice(1)}</span>
+          className=" cursor-pointer flex-between rounded-md border-b-1 border-zinc-700 hover:bg-zinc-700 hover:bg.opacity-10  p-2">
+            <span>{formatPokeName(pokeName)}</span>
             <span className="text-yellow-600/80">{formatNumber(pokeNumber)}</span>
             
 
@@ -138,23 +157,6 @@ const Searcher = ({getPokeInfo, pokemonList}) => {
 
       </div>)}
       </div>
-
-
-
-      {/* Old search results version */}
-      {/* {inputValue.length >= 2 && (
-        <ul className="bg-black w-full text-white">
-          {filteredPokemon
-            .slice(0, filteredPokemon.length > 12 ? 12 : undefined)
-            .map(pokemon => (
-              <li key={pokemon.entry_number}>
-                <button className="w-full " onClick={() => setInputValue(pokemon.pokemon_species.name)}>
-                  {pokemon.pokemon_species.name}
-                </button>
-              </li>
-            ))}
-        </ul>
-      )} */}
       
       </div>
     );
