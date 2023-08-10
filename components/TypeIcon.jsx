@@ -1,6 +1,6 @@
 import React from 'react';
 import typeIconMapping from '@utils/pokeTypes';
-import typeTranslations from '@utils/typeTranslate';
+import  {typeTranslations } from '@utils/translator';
 
 const TypeIcon = ({ type }) => {
   const iconType = typeIconMapping[type.type.name];  

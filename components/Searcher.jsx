@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 
 import { SearchIcon } from "./SearchIcon";
-import {Spinner} from "@nextui-org/react";
 import {Input} from "@nextui-org/react";
 
 const Searcher = ({getPokeInfo, results, onChange }) => {
@@ -67,6 +66,12 @@ const Searcher = ({getPokeInfo, results, onChange }) => {
         
         e.preventDefault()
         handleSelection(focusedIndex);
+        
+      }
+
+      if (key === 'Escape') {
+        
+        resetSearchComplete()
         
       }
 

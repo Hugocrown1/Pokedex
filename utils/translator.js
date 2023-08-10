@@ -18,5 +18,15 @@ const typeTranslations = {
     steel: 'Acero',
     fairy: 'Hada'
   };
+  const statTranslations = {
+    hp: 'PS',
+    attack: 'Ataque',
+    defense: 'Defensa',
+    speed: 'Velocidad',
+    'special-attack': 'At.Especial',
+    'special-defense': 'Def.Especial'
+  };
 
-  export default typeTranslations
+  
+
+  export  {typeTranslations, statTranslations}

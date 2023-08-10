@@ -75,7 +75,7 @@
 /* Tailwind Styles */
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-6;
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-4;
 }
 
 .black_btn {
@@ -169,6 +169,40 @@
 .flex-between {
   @apply flex justify-between items-center;
 }
+
+.stat-rank-1 {
+  background-color: #e12c2c;
+  
+  
+}
+
+.stat-rank-2 {
+  background: linear-gradient(90deg, hsla(0, 75%, 53%, 1) 40%, hsla(38, 100%, 50%, 1) 60%);
+
+}
+
+.stat-rank-3 {
+  background: linear-gradient(90deg, hsla(38, 100%, 50%, 1) 10%, rgb(255, 222, 5) 50%);
+}
+
+.stat-rank-4 {
+  background: linear-gradient(90deg, hsla(52, 99%, 62%, 1) 10%, rgb(151, 235, 16) 50%);
+  
+}
+
+.stat-rank-5 {
+  background: linear-gradient(90deg, hsla(83, 88%, 52%, 1) 10%, hsla(147, 100%, 35%, 1) 80%);
+  
+}
+
+.stat-rank-6 {
+
+  background: linear-gradient(90deg, hsla(147, 100%, 35%, 1) 10%, hsla(182, 52%, 50%, 1) 50%);
+
+
+}
+
+
 
 .type-dragon {
   background-image: linear-gradient(to bottom, #1a73c0 50%, #ca3945 50%);
