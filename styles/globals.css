@@ -14,7 +14,7 @@
   position: fixed;
   display: flex;
   justify-content: center;
-  padding: 120px 24px 160px 24px;
+  padding: 120px 16px 160px 16px;
   pointer-events: none;
 }
 
@@ -75,7 +75,7 @@
 /* Tailwind Styles */
 
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16 px-4;
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto sm:px-16;
 }
 
 .black_btn {
@@ -276,15 +276,58 @@
   background-color: #A96AC9;
 }
 
+.type-fx-100 {
+  background-color: rgb(209, 214, 214);
+}
+
+.type-fx-50 {
+  background-color: brown;
+  color: #ffdd57; 
+}
+
+.type-fx-25 {
+  background-color: rgb(114, 27, 27);
+  color: #ffdd57; 
+}
+
+.type-fx-0 {
+  background-color: rgb(53, 49, 49);
+  color: #ffdd57; 
+}
+
+.type-fx-200 {
+  background-color: #417a3b;
+  color: #ffdd57; 
+}
+
+.type-fx-400 {
+  background-color: #5da557;
+  color: #ffdd57; 
+}
 
 
+.type-fx-cell {
+  
+  font-size: .900rem;
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+  display: inline-block;
+  width: 33px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.type-icon-cell {
+  margin-right: 10px; /* Ajusta el valor según tus necesidades */
+}
 
 
 .type-icon {
   display: inline-block;
   width: 66px;
   margin-bottom: 4px;
-  margin-right: 4px;
+  margin-right: 2px;
   border: 1px solid #a3a3a3;
   border-radius: 4px;
   border: 1px solid rgba(14, 13, 13, 0.932);
