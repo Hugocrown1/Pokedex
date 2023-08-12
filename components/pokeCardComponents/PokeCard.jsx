@@ -18,45 +18,20 @@ import {Progress} from "@nextui-org/progress";
 const PokeCard = ({pokemon, specie, weaknesses}) => {
 
   const weaknessProvider = (type) => {
-    let multiplier = 1
-    if (type in weaknesses) {
-      multiplier = weaknesses[type]
-    }
     
-    switch (multiplier) {
-      case 1:
-        return {
-          value: multiplier,
-          style: 'type-fx-cell type-fx-100'
-        }
-      case 2:
-        return {
-          value: multiplier,
-          style: 'type-fx-cell type-fx-200'
-        }
-      case 4:
-        return {
-          value: multiplier,
-          style: 'type-fx-cell type-fx-400'
-        }
-      case 0.5:
-        return {
-          value: '½',
-          style: 'type-fx-cell type-fx-50'
-        }
-        case 0.25:
-          return {
-            value: '¼',
-            style: 'type-fx-cell type-fx-25'
-          }
-        case 0:
-          return {
-            value: multiplier,
-            style: 'type-fx-cell type-fx-0'
-          }
-    }
-    
-  }
+    const multiplierMap = {
+      1: { value: 1, style: 'type-fx-cell type-fx-100' },
+      2: { value: 2, style: 'type-fx-cell type-fx-200' },
+      4: { value: 4, style: 'type-fx-cell type-fx-400' },
+      0.5: { value: '½', style: 'type-fx-cell type-fx-50' },
+      0.25: { value: '¼', style: 'type-fx-cell type-fx-25' },
+      0: { value: 0, style: 'type-fx-cell type-fx-0' }
+    };
+  
+    const multiplier = type in weaknesses ? weaknesses[type] : 1;
+  
+    return multiplierMap[multiplier];
+  };
   
     return (
       <div className="flex-1 break-inside-avoid rounded-lg border border-[#02010a] bg-[#f4effa] bg-clip-padding pt-2 pb-4 px-14 backdrop-blur-lg backdrop-filter w-full h-fit mt-10">
@@ -66,7 +41,7 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
           <Image alt='official Pokémon artwork' src={pokemon.sprites.other['official-artwork'].front_default} width="350" height="350" quality={100}/>
           
           {/* Tabla de datos basicos */}
-          <div classNames='w-full'>
+          <div>
             <h2 className=' text-left text-2xl font-inter font-bold mb-2'>Datos básicos</h2>
             <table className='text-left border-collapse border-y border-gray-300 w-full'>
             <tbody className='divide-y divide-gray-300' >
@@ -180,10 +155,10 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
           </div>
         
         {/* Tabla de debilidades */}
-        <div className='w-2/6'>
+        <div className='w-auto'>
           <h2 className='text-left text-2xl font-inter font-bold mb-2'>Resistencias y debilidades</h2>
 
-          <div className='flex items-center gap-x-4 justify-left'>
+          <div className='flex justify-center items-center gap-x-4 bg-white py-5 rounded-lg shadow-2xl'>
             <table>
               <tbody>
                 {pokemonTypes.firstBatch.map((type, index) =>{ 

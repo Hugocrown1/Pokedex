@@ -46,9 +46,11 @@ const Home = () => {
 
   const getPokeInfo = async (name) => {
     try {
+      
         const pokemonData = await pokemonService.getByName(name);
         const pokemonSpecie = await pokemonService.getSpecie(name);
-        const pokemonWeaknesses = await getWeaknesses(pokemonData.types);
+        const pokemonWeaknesses = await getWeaknesses(pokemonData.types, pokemonData.abilities);
+        
 
         
         setWeaknesses(pokemonWeaknesses)

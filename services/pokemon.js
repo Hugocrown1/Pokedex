@@ -3,6 +3,7 @@ const baseUrl = 'https://pokeapi.co/api/v2'
 
 const getByName = async (name) => {
     const response = await axios.get(`${baseUrl}/pokemon/${name}`)
+    
     return response.data
 }
 
