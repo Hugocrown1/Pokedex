@@ -19,6 +19,10 @@ const typeIconMapping = {
     fairy: 'type-icon type-fairy'
   };
 
+  export const allPokemonTypes = ['steel', 'water', 'bug', 'dragon', 'electric', 'ghost', 'fire', 'fairy',
+  'ice', 'fighting', 'normal', 'grass', 'psychic', 'rock', 'dark', 'ground',
+  'poison', 'flying']
+
   export const pokemonTypes = {
     firstBatch: [
       'steel', 'water', 'bug', 'dragon', 'electric', 'ghost', 'fire', 'fairy',

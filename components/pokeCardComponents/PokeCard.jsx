@@ -11,27 +11,36 @@ import {
   TableCell
 } from "@nextui-org/table";
 
+import {Tabs, Tab} from "@nextui-org/tabs";
+
 import { pokemonTypes } from '@utils/pokeTypes';
 
 import {Progress} from "@nextui-org/progress";
+import { DefensesTable } from './DefensesTable';
 
 const PokeCard = ({pokemon, specie, weaknesses}) => {
 
-  const weaknessProvider = (type) => {
-    
-    const multiplierMap = {
-      1: { value: 1, style: 'type-fx-cell type-fx-100' },
-      2: { value: 2, style: 'type-fx-cell type-fx-200' },
-      4: { value: 4, style: 'type-fx-cell type-fx-400' },
-      0.5: { value: '½', style: 'type-fx-cell type-fx-50' },
-      0.25: { value: '¼', style: 'type-fx-cell type-fx-25' },
-      0: { value: 0, style: 'type-fx-cell type-fx-0' }
-    };
   
-    const multiplier = type in weaknesses ? weaknesses[type] : 1;
+
+
+
+  // const weaknessProvider = (type) => {
+  //   if(weaknesses[type] === 1) {
+  //     return { value: weaknesses[type], style : 'type-fx-cell type-fx-100' }
+  //   }
+  //   else if (weaknesses[type] === 0) {
+  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-0' };
+  //   } else if (weaknesses[type] < 0.5) {
+  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-25' };
+  //   } else if (weaknesses[type] < 1) {
+  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-50' };
+  //   } else if (weaknesses[type] < 4) {
+  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-200' };
+  //   } else {
+  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-400' };
+  //   }
+  // };
   
-    return multiplierMap[multiplier];
-  };
   
     return (
       <div className="flex-1 break-inside-avoid rounded-lg border border-[#02010a] bg-[#f4effa] bg-clip-padding pt-2 pb-4 px-14 backdrop-blur-lg backdrop-filter w-full h-fit mt-10">
@@ -158,35 +167,28 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
         <div className='w-auto'>
           <h2 className='text-left text-2xl font-inter font-bold mb-2'>Resistencias y debilidades</h2>
 
-          <div className='flex justify-center items-center gap-x-4 bg-white py-5 rounded-lg shadow-2xl'>
-            <table>
-              <tbody>
-                {pokemonTypes.firstBatch.map((type, index) =>{ 
-                  const { style, value } = weaknessProvider(type)
-                
-                return <tr key={index}>
-                <th>
-                  <TypeIcon type={type}/>
-                </th>
-                <td className={style}><span className='font-thin text-xs'>x</span>{value}</td>
-                </tr>})}
-              </tbody>
-            </table>
+          {Array.isArray(weaknesses) ? (
+  weaknesses.length === 1 ? (
+    <DefensesTable weaknesses={weaknesses[0].ability.multipliers} />
+  ) : (
+    <Tabs aria-label='Defense Tables'>
+      {weaknesses.map((ability) => (
+        <Tab key={ability.ability.name} title={ability.ability.name}>
+          <DefensesTable weaknesses={ability.ability.multipliers} />
+        </Tab>
+      ))}
+    </Tabs>
+  )
+) : (
+  typeof weaknesses === 'object' && <DefensesTable weaknesses={weaknesses} />
+)}
+        
 
-            <table>
-              <tbody>
-                {pokemonTypes.secondBatch.map((type, index) => {
-                  const { style, value } = weaknessProvider(type)
-                
-                return <tr key={index}>
-                <th>
-                  <TypeIcon type={type}/>
-                </th>
-                <td className={style}><span className='font-thin text-xs'>x</span>{value}</td>
-                </tr>})}
-              </tbody>
-            </table>
-          </div>
+
+
+
+
+               
 
         </div>
 

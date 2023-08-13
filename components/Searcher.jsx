@@ -35,7 +35,9 @@ const Searcher = ({getPokeInfo, results, onChange }) => {
     const handleSelection = (selectedIndex) => {
       const selectedItem = results[selectedIndex]
       if (!selectedItem) return resetSearchComplete();
-      getPokeInfo && getPokeInfo(selectedItem.pokemon_species.name.toLowerCase())
+      
+      // Se envía el id del pokemon para consultarlo en la API
+      getPokeInfo && getPokeInfo(selectedItem.entry_number)
       const pokeName = formatPokeName(selectedItem.pokemon_species.name)
       setInputValue(pokeName)
       resetSearchComplete()
