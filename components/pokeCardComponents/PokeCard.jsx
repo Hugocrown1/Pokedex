@@ -1,4 +1,4 @@
-import Image from 'next/image'
+// import Image from 'next/image'
 import TypeIcon from './TypeIcon';
 import { statTranslations } from '@utils/translator';
 import statRanker from '@utils/statRanker';
@@ -12,44 +12,104 @@ import {
 } from "@nextui-org/table";
 
 import {Tabs, Tab} from "@nextui-org/tabs";
+import {Image} from "@nextui-org/image";
 
 import { pokemonTypes } from '@utils/pokeTypes';
+import { cardStyleMapping } from '@utils/pokeTypes';
 
 import {Progress} from "@nextui-org/progress";
+import {Chip} from "@nextui-org/chip";
+import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
+import {Divider} from "@nextui-org/divider";
+// import {Image} from "@nextui-org/image";
 import { DefensesTable } from './DefensesTable';
 
 const PokeCard = ({pokemon, specie, weaknesses}) => {
 
+
+  const pokeNumber =`#${pokemon.id.toString().padStart(4, '0')}`
+
+  const cardStyle = cardStyleMapping[pokemon.types[0].type.name];
+
   
-
-
-
-  // const weaknessProvider = (type) => {
-  //   if(weaknesses[type] === 1) {
-  //     return { value: weaknesses[type], style : 'type-fx-cell type-fx-100' }
-  //   }
-  //   else if (weaknesses[type] === 0) {
-  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-0' };
-  //   } else if (weaknesses[type] < 0.5) {
-  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-25' };
-  //   } else if (weaknesses[type] < 1) {
-  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-50' };
-  //   } else if (weaknesses[type] < 4) {
-  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-200' };
-  //   } else {
-  //     return { value: weaknesses[type], style: 'type-fx-cell type-fx-400' };
-  //   }
-  // };
   
   
     return (
-      <div className="flex-1 break-inside-avoid rounded-lg border border-[#02010a] bg-[#f4effa] bg-clip-padding pt-2 pb-4 px-14 backdrop-blur-lg backdrop-filter w-full h-fit mt-10">
-        <h1 className="text-center text-4xl font-inter font-semibold mb-5">{pokemon.name.toUpperCase()}</h1>
+      <div className="flex-1 break-inside-avoid rounded-lg border border-[#02010a] bg-[#e9e7e7] bg-clip-padding pt-4 pb-4 px-14 backdrop-blur-lg backdrop-filter w-full h-fit mt-10 dark:bg-[#202020]">
+        
+        <h1 className="italic text-center text-5xl font-inter font-semibold mb-5">{pokeNumber}</h1>
 
-        <div className='flex justify-center gap-x-24 items-center'>
-          <Image alt='official Pokémon artwork' src={pokemon.sprites.other['official-artwork'].front_default} width="350" height="350" quality={100}/>
+        <div className='flex  justify-start gap-x-20 items-center  h-full'>
+          {/* Carta de pokemon */}
+
+          <div className='relative items-start w-fit mr-20'>
+            <Image
+            isBlurred={true}
+              className='absolute z-10'
+              alt='official Pokémon artwork'
+              src={pokemon.sprites.other['official-artwork'].front_default}
+              width="380"
+              height="380"
+              quality={100}
+              style={{ transform: 'translate(-6%, -10%)', maxWidth: 'none' }}
+            />
+
+            {/* cambia estilo */}
+            <Card className={cardStyle.border}>
+            
+              <CardBody className="overflow-visible justify-end items-center py-8">
+
+              
+                <h3 className='font-semibold text-3xl tracking-wider text-center' >{pokemon.species.name.toUpperCase()}</h3>
+                
+                {/* cambia estilo */}
+                <Divider className={cardStyle.divider}/>
+
+                <h3 className='font-semibold'>{specie.genera[5].genus}</h3>
+              
+              
+              </CardBody>
+              <CardFooter className='justify-center'>
+                <div className='flex flex-row'>
+
+                  <div className='flex flex-col items-center'>
+    
+                    <h3 className='font-semibold'>{(pokemon.height * 0.1).toFixed(1)} m</h3>
+
+                      {/* cambia estilo */}
+                    <Chip className={cardStyle.chip} variant="shadow"><span className='font-semibold'>Altura</span></Chip>
+                  </div>
+
+                  <Divider orientation="vertical" className='mx-2  h-auto bg-gray-600'/>
+
+  
+                  <div className='flex flex-col items-center'>
+    
+                    <div className='flex flex-row mb-1'>{pokemon.types.map((type, index) => <TypeIcon key={index} type={type.type.name}/>)}</div>
+
+                      {/* cambia estilo */}
+                    <Chip className={cardStyle.chip} variant="shadow"><span className='font-semibold'>Tipo</span></Chip>
+                  </div>
+
+                  <Divider orientation="vertical" className='mx-2  h-auto bg-gray-600'/>
+    
+                  <div className='flex flex-col items-center'>
+    
+                    <h3 className='font-semibold'>{(pokemon.weight * 0.1).toFixed(1)} kg</h3>
+
+                    {/* cambia estilo */}
+                    <Chip className={cardStyle.chip} variant="shadow"><span className='font-semibold'>Peso</span></Chip>
+                  </div>
+
+                </div>
+
+
+              </CardFooter>
+            </Card>
+          </div>
           
-          {/* Tabla de datos basicos */}
+          
+          {/* Tabla de datos básicos */}
           <div>
             <h2 className=' text-left text-2xl font-inter font-bold mb-2'>Datos básicos</h2>
             <table className='text-left border-collapse border-y border-gray-300 w-full'>
@@ -126,11 +186,12 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
           </table>
           </div>
         </div>
-        <div className='flex gap-x-6 items-center'>
+        <div className='flex gap-x-6 items-start mt-4'>
 
+          {/* Tabla de estadísticas */}
           <div className='w-4/6'>
             <h2 className='text-left text-2xl font-inter font-bold mb-2'>Estadísticas base</h2>
-            <Table  className='w-full' aria-label="Example static collection table">
+            <Table  className='w-full h-full' aria-label="Example static collection table">
                   <TableHeader>
             <TableColumn width={15}>STAT</TableColumn>
             <TableColumn width={20}>VALOR</TableColumn>
@@ -143,12 +204,14 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
             
               <TableCell>
               <Progress
-            
+              size='lg'
+              radius='sm'
               aria-label="Stat graphic"
               value={stat.base_stat}
               maxValue={180}
                className="max-w "
                classNames={{
+                
                 indicator: statRanker(stat.base_stat),
             
                 }}/>
@@ -164,31 +227,29 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
           </div>
         
         {/* Tabla de debilidades */}
-        <div className='w-auto'>
-          <h2 className='text-left text-2xl font-inter font-bold mb-2'>Resistencias y debilidades</h2>
-
-          {Array.isArray(weaknesses) ? (
-  weaknesses.length === 1 ? (
-    <DefensesTable weaknesses={weaknesses[0].ability.multipliers} />
-  ) : (
-    <Tabs aria-label='Defense Tables'>
-      {weaknesses.map((ability) => (
-        <Tab key={ability.ability.name} title={ability.ability.name}>
-          <DefensesTable weaknesses={ability.ability.multipliers} />
-        </Tab>
-      ))}
-    </Tabs>
-  )
-) : (
-  typeof weaknesses === 'object' && <DefensesTable weaknesses={weaknesses} />
-)}
-        
-
-
-
-
-
-               
+        <div className='w-2/6'>
+          
+            <h2 className='static text-left text-2xl font-inter font-bold mb-2'>Resistencias y debilidades</h2>
+            
+            {Array.isArray(weaknesses) ? (
+              weaknesses.length === 1 ? (
+                <DefensesTable weaknesses={weaknesses[0].ability.multipliers} />
+              ) : (
+                
+                  <Tabs size='sm' className='w-fit' variant='bordered' aria-label='Defense Tables'>
+                    {weaknesses.map((ability) => (
+                      <Tab key={ability.ability.name} title={ability.ability.name + ' ability'}>
+                        <DefensesTable weaknesses={ability.ability.multipliers} />
+                      </Tab>
+                    ))}
+                  </Tabs>
+                
+              )
+            ) : (
+              typeof weaknesses === 'object' && <DefensesTable weaknesses={weaknesses} />
+            )}
+            
+          
 
         </div>
 

@@ -192,6 +192,7 @@
 
 .stat-rank-5 {
   background: linear-gradient(90deg, hsla(83, 88%, 52%, 1) 10%, hsla(147, 100%, 35%, 1) 80%);
+  border: #4D90D5;
   
 }
 
@@ -280,6 +281,239 @@
   background-color: rgb(209, 214, 214);
 }
 
+.type-fx-100 {
+  background-color: rgb(231, 231, 231);
+  color: rgb(59, 59, 59);
+}
+
+
+
+/* Estilos pokeCard */
+.pokemon-card {
+  height: 34rem;
+  width: 21rem;
+  border-width: medium;
+  background-color: transparent;
+  padding-top: 1rem/* 16px */;
+  padding-bottom: 1rem/* 16px */;
+}
+
+.water-card {
+  border-color: hsla(216, 100%, 50%, 1)
+}
+
+.dragon-card {
+  border-color: hsla(216, 100%, 35%, 1)
+}
+
+.steel-card {
+  border-color: hsla(196, 29%, 49%, 1)
+}
+
+.bug-card {
+  border-color: hsla(79, 65%, 46%, 1)
+}
+
+.electric-card {
+  border-color: hsla(49, 89%, 59%, 1)
+}
+
+.ghost-card {
+  border-color: hsla(225, 36%, 50%, 1)
+}
+
+.fire-card {
+  border-color: hsla(26, 99%, 66%, 1)
+}
+
+.fairy-card {
+  border-color: hsla(303, 69%, 74%, 1)
+}
+
+.ice-card {
+  border-color: hsla(173, 59%, 57%, 1);
+}
+
+.fighting-card {
+  border-color: hsla(342, 60%, 53%, 1);
+}
+
+.normal-card {
+  border-color: hsla(210, 8%, 60%, 1)
+}
+
+.grass-card {
+  border-color: hsla(115, 42%, 55%, 1)
+}
+
+.psychic-card {
+  border-color: hsla(357, 92%, 71%, 1);
+}
+
+.rock-card {
+  border-color: hsla(46, 34%, 66%, 1)
+}
+
+.dark-card {
+  border-color: hsla(265, 10%, 36%, 1);
+}
+
+.ground-card {
+  border-color: hsla(22, 66%, 55%, 1)
+}
+
+.poison-card {
+  border-color: hsla(280, 47%, 60%, 1);
+}
+
+.flying-card {
+  border-color: hsla(221, 56%, 72%, 1);
+}
+
+/* Estilos card divider */
+.card-divider {
+  margin-top: 0.25rem/* 4px */;
+  margin-bottom: 0.25rem/* 4px */;
+  width: 60%;
+  height: 4px;
+  border-radius: 1cm;
+}
+
+.water-divider {
+  background: linear-gradient(90deg, hsla(0, 0%, 100%, 1) 0%, hsla(216, 100%, 50%, 1) 50%);
+}
+
+.dragon-divider {
+  background: linear-gradient(90deg, hsla(355, 57%, 50%, 1) 0%, hsla(216, 100%, 35%, 1) 100%);
+}
+
+.steel-divider {
+  background: linear-gradient(90deg, hsla(0, 0%, 100%, 1) 1%, hsla(196, 29%, 49%, 1) 100%);
+}
+
+.bug-divider {
+  background: linear-gradient(90deg, hsla(58, 100%, 60%, 1) 1%, hsla(79, 65%, 46%, 1) 100%);
+
+}
+
+.electric-divider {
+  background: linear-gradient(90deg, hsla(2, 72%, 66%, 1) 0%, hsla(49, 89%, 59%, 1) 99%);
+
+}
+
+.ghost-divider {
+  background: linear-gradient(90deg, hsla(45, 61%, 63%, 1) 2%, hsla(225, 36%, 50%, 1) 80%);
+}
+
+.fire-divider {
+  background: linear-gradient(90deg, hsla(52, 100%, 79%, 1) 2%, hsla(26, 99%, 66%, 1) 100%);
+}
+
+.fairy-divider {
+  background: linear-gradient(90deg, hsla(45, 100%, 99%, 1) 0%, hsla(303, 69%, 74%, 1) 100%);
+}
+
+.ice-divider {
+  background: linear-gradient(90deg, hsla(45, 100%, 99%, 1) 0%, hsla(173, 59%, 57%, 1) 100%);
+}
+
+.fighting-divider {
+  background: linear-gradient(90deg, hsla(211, 51%, 57%, 1) 0%, hsla(342, 60%, 53%, 1) 54%);
+}
+
+.normal-divider {
+  background: linear-gradient(90deg, hsla(0, 0%, 98%, 1) 0%, hsla(210, 8%, 60%, 1) 74%);
+}
+
+.grass-divider {
+  background: linear-gradient(90deg, hsla(0, 12%, 40%, 1) 0%, hsla(115, 42%, 55%, 1) 94%);}
+
+.psychic-divider {
+  background: linear-gradient(90deg, hsla(299, 50%, 54%, 1) 2%, hsla(357, 92%, 71%, 1) 87%);
+}
+
+.rock-divider {
+  background: linear-gradient(90deg, hsla(0, 0%, 61%, 1) 12%, hsla(46, 34%, 66%, 1) 82%);
+}
+
+.dark-divider {
+  background: linear-gradient(90deg, hsla(0, 68%, 44%, 1) 12%, hsla(265, 10%, 36%, 1) 89%);
+
+}
+
+.ground-divider {
+  background: linear-gradient(90deg, hsla(42, 100%, 55%, 1) 12%, hsla(22, 66%, 55%, 1) 77%);
+}
+
+.poison-divider {
+  background: linear-gradient(90deg, hsla(57, 100%, 55%, 1) 1%, hsla(280, 47%, 60%, 1) 64%);
+}
+
+.flying-divider {
+  background: linear-gradient(90deg, hsla(0, 0%, 77%, 1) 1%, hsla(221, 56%, 72%, 1) 69%);
+
+}
+
+
+  
+
+
+/* Estilos chip */
+.card-chip {
+  margin-top: auto;
+  color: black
+}
+
+/* dragon, agua, psíquico, volador, hielo */
+.white-chip {
+  background-color: #ebebeb ;
+  color: black
+}
+/* eléctrico, fantasma, fuego, planta, siniestro */
+.red-chip {
+  background-color: #bd2e3a ;
+  color: white
+}
+
+/* bicho, veneno */
+.yellow-chip {
+  background-color: #FDE208 ;
+  color: black
+}
+
+/* hada, tierra */
+.cyan-chip {
+  background-color: #86CFF3;
+  color: black;
+}
+
+/* lucha, normal, roca */
+.brown-chip {
+  background-color: #725A5A;
+  color: white
+}
+
+/* acero */
+.gray-chip {
+  background-color: #acacac;
+  color: black;
+}
+
+.dragon-chip {
+  background-color: #6F59D9;
+  color: white
+}
+
+.blood-chip {
+  background-color: #80243E  ;
+  color: white;
+}
+
+
+
+
+
+
 .type-fx-50 {
   background-color: brown;
   color: #ffdd57; 
@@ -317,6 +551,42 @@
   border-radius: 3px;
   font-weight: 600;
 }
+
+.text-6xl::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, transparent, transparent, rgba(0, 0, 0, 0.2));
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.background-sphere {
+  position: relative;
+  width: 200px; /* Ajusta el tamaño de la esfera */
+  height: 200px; /* Ajusta el tamaño de la esfera */
+  border-radius: 50%;
+  background: radial-gradient(circle, #FFC107, #E91E63); /* Cambia los colores radiantes */
+  filter: blur(10px); /* Agrega el efecto de desenfoque */
+}
+
+.background-sphere::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  background: radial-gradient(circle, transparent, rgba(255, 255, 255, 0.2));
+  border-radius: 50%;
+  filter: blur(15px);
+}
+
 
 .type-icon-cell {
   margin-right: 10px; /* Ajusta el valor según tus necesidades */

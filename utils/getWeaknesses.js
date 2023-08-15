@@ -5,44 +5,42 @@ const immunityAbilities = [
     'motor-drive', 'water-absorb', 'levitate', 'volt-absorb', 'flash-fire', 'storm-drain','lightning-rod', 'grass-pelt', 'dry-skin', 'wonder-guard'
 ]
 
-// Función que determina la inmunidad a aplicar dependiendo de la habilidad
-const getImmunity = (abilityName, multipliersObject) => {
-      
-  // Inmunidad a electricidad
-  if (abilityName === 'motor-drive' || abilityName === 'lightning-rod' || abilityName === 'volt-absorb'){
-    multipliersObject.electric = 0
-    
-    // Inmunidad al agua
-  } else if (abilityName === 'water-absorb' || abilityName === 'storm-drain') {
-    multipliersObject.water = 0
 
-    // Inmunidad a tipo tierra
-  } else if(abilityName === 'levitate') {
-    multipliersObject.ground = 0
-
-    //inmunidad a tipo planta
-  } else if (abilityName === 'grass-pelt') {
-    multipliersObject.grass = 0
-
-    // Inmunidad a todo menos a las debilidades
-  } else if (abilityName === 'wonder-guard') {
-    
+const immunityEffects = {
+  'motor-drive': { electric: 0 },
+  'lightning-rod': { electric: 0 },
+  'volt-absorb': { electric: 0 },
+  'water-absorb': { water: 0 },
+  'storm-drain': { water: 0 },
+  'levitate': { ground: 0 },
+  'grass-pelt': { grass: 0 },
+  'wonder-guard': (multipliersObject) => {
     allPokemonTypes.forEach(type => {
-      if(multipliersObject[type] !== 2)
-        multipliersObject[type] = 0
-    })
+      if (multipliersObject[type] !== 2) {
+        multipliersObject[type] = 0;
+      }
+    });
+  },
+  'flash-fire': { fire: 0 },
+  'dry-skin': (multipliersObject) => {
+    multipliersObject.water = 0;
+    multipliersObject.fire += multipliersObject.fire * 0.25;
+  }
+};
 
-    // Inmunidad al fuego
-  } else if (abilityName === 'flash-fire') {
-    multipliersObject.fire = 0
-  } else if (abilityName === 'dry-skin') {
-    multipliersObject.water = 0
-    multipliersObject.fire += (multipliersObject.fire* 0.25)
+const getImmunity = (abilityName, multipliersObject) => {
+  const effect = immunityEffects[abilityName];
+
+  if (effect) {
+    if (typeof effect === 'function') {
+      effect(multipliersObject);
+    } else {
+      Object.assign(multipliersObject, effect);
+    }
   }
 
-  
-  return multipliersObject
-}
+  return multipliersObject;
+};
 
 
 

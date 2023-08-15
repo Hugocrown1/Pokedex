@@ -12,9 +12,13 @@ export const DefensesTable = ({weaknesses}) => {
         else if (weaknesses[type] === 0) {
           return { value: weaknesses[type], style: 'type-fx-cell type-fx-0' };
         } else if (weaknesses[type] < 0.5) {
-          return { value: weaknesses[type], style: 'type-fx-cell type-fx-25' };
+
+          // Cambiar cuando sea necesario
+          return { value: '¼', style: 'type-fx-cell type-fx-25' };
         } else if (weaknesses[type] < 1) {
-          return { value: weaknesses[type], style: 'type-fx-cell type-fx-50' };
+          return { value: '½', style: 'type-fx-cell type-fx-50' };
+
+
         } else if (weaknesses[type] < 4) {
           return { value: weaknesses[type], style: 'type-fx-cell type-fx-200' };
         } else {
@@ -23,7 +27,7 @@ export const DefensesTable = ({weaknesses}) => {
       };
 
   return (
-    <div className='flex justify-center items-center gap-x-4 bg-white py-5 rounded-lg shadow-2xl'>
+    <div className='flex justify-center items-center gap-x-4 bg-white py-5 rounded-lg shadow-2xl dark:bg-[#18181B]'>
             <table>
               <tbody>
                 {pokemonTypes.firstBatch.map((type, index) =>{ 
