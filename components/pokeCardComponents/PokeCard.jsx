@@ -1,7 +1,8 @@
 // import Image from 'next/image'
 import TypeIcon from './TypeIcon';
-import { statTranslations } from '@utils/translator';
+import { statTranslations, eggGroupTranslations, growthRateTranslations } from '@utils/translator';
 import statRanker from '@utils/statRanker';
+import captureRate from '@utils/captureRate';
 import {
   Table,
   TableHeader,
@@ -16,6 +17,7 @@ import {Image} from "@nextui-org/image";
 
 import { pokemonTypes } from '@utils/pokeTypes';
 import { cardStyleMapping } from '@utils/pokeTypes';
+import {CircularProgress} from "@nextui-org/progress";
 
 import {Progress} from "@nextui-org/progress";
 import {Chip} from "@nextui-org/chip";
@@ -25,11 +27,14 @@ import {Divider} from "@nextui-org/divider";
 import { DefensesTable } from './DefensesTable';
 
 const PokeCard = ({pokemon, specie, weaknesses}) => {
+  
 
 
   const pokeNumber =`#${pokemon.id.toString().padStart(4, '0')}`
 
   const cardStyle = cardStyleMapping[pokemon.types[0].type.name];
+
+  let captureProb = captureRate(pokemon.stats[0].base_stat, specie.capture_rate)
 
   
   
@@ -39,7 +44,7 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
         
         <h1 className="italic text-center text-5xl font-inter font-semibold mb-5">{pokeNumber}</h1>
 
-        <div className='flex  justify-start gap-x-20 items-center  h-full'>
+        <div className='flex  justify-start gap-x-8 items-center  h-full'>
           {/* Carta de pokemon */}
 
           <div className='relative items-start w-fit mr-20'>
@@ -106,85 +111,158 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
 
               </CardFooter>
             </Card>
-          </div>
-          
-          
-          {/* Tabla de datos básicos */}
-          <div>
-            <h2 className=' text-left text-2xl font-inter font-bold mb-2'>Datos básicos</h2>
-            <table className='text-left border-collapse border-y border-gray-300 w-full'>
-            <tbody className='divide-y divide-gray-300' >
-              <tr>
-                <th>Tipo: </th>
-                <td className='type-icon-cell' > 
-                  {pokemon.types.map((type, index) => <TypeIcon key={index} type={type.type.name}/>)}
-                </td>
-              </tr>
-              <tr>
-                <th>Especie: </th>
-                <td>{specie.genera[5].genus}</td>
-              </tr>
-              <tr>
-                <th>Altura: </th>
-                <td>{(pokemon.height * 0.1).toFixed(1)} m</td>
-              </tr>
-              <tr >
-                <th >Peso: </th>
-                <td>{(pokemon.weight * 0.1).toFixed(1)} kg</td>
-              </tr>
-              <tr>
-                <th className='pr-3'>Habilidades: </th>
-                <td>
-                {pokemon.abilities.map((ability, index) => (
-                  <span key={ability.ability.url}>
-                    {ability.is_hidden ? (
-                      <>
-                        {ability.ability.name} (oculta)
-                        {index !== pokemon.abilities.length - 1 && <br/>}
-                      </>
-                    ) : (
-                      <>
-                         {index+1}. {ability.ability.name}
-                        {index !== pokemon.abilities.length - 1 && <br/>}
-                      </>
-                    )}
-                  </span>
-                ))}
-                </td>
-              </tr>
-              <tr>
-                <th>Nombres: </th>
-                <td>
-    
-                    
-                    <div className="flex items-center space-x-2">
-                      <Image className='drop-shadow-sm'  width={20} height={20} alt='viva México' src='/../public/assets/icons/mexico.png' />  {specie.names[6].name}
-                    </div>
-                <div className="flex items-center space-x-2">
-                <Image className='drop-shadow-sm'  width={20} height={20} alt="french flag" src="/../public/assets/icons/french.png" />
-                {specie.names[4].name}
-                </div>
-              
-              <div className="flex items-center space-x-2">
-                <Image className='drop-shadow-sm'   width={20} height={20} alt="german flag" src="/../public/assets/icons/german.png" />
-                {specie.names[5].name}
-              </div>
 
-              <div className="flex items-center space-x-2">
-                <Image className='drop-shadow-lg'  width={20} height={20} alt="japan flag" src="/../public/assets/icons/japan.png" />
-                {specie.names[0].name}
-              </div>
-    
-              <div className="flex items-center">
-                <Image  className='drop-shadow-lg'  width={20} height={20} alt="japan flag" src="/../public/assets/icons/japan.png" />
-                {specie.names[1].name}
-              </div>
-              
-                </td>
-              </tr>
-            </tbody>
-          </table>
           </div>
+
+          <div className='flex flex-col'>
+            <div className='flex flex-row gap-x-4 items-center'>
+              <div className='flex flex-col font-semibold'>
+              <h2 className=' text-left text-2xl font-inter pl-2 font-bold mb-2'>Datos</h2>
+                  <Table isSticky isStriped className='text-left w-full font-semibold' hideHeader aria-label="Misc table">
+                      <TableHeader>
+                        <TableColumn>DATO</TableColumn>
+                        <TableColumn>INFO</TableColumn>
+                      </TableHeader>
+                    <TableBody >
+                    <TableRow key="1">
+                        <TableCell className='font-semibold'>Habilidades: </TableCell>
+                        <TableCell>
+                        {pokemon.abilities.map((ability, index) => (
+                      <span key={ability.ability.url}>
+                        {ability.is_hidden ? (
+                          <>
+                            {ability.ability.name} (oculta)
+                            {index !== pokemon.abilities.length - 1 && <br/>}
+                          </>
+                        ) : (
+                          <>
+                             {index+1}. {ability.ability.name}
+                            {index !== pokemon.abilities.length - 1 && <br/>}
+                          </>
+                        )}
+                      </span>
+                    ))}
+                        </TableCell>
+                      </TableRow>
+            
+                      <TableRow key='2'>
+                          <TableCell className='font-semibold'>Exp. Base: </TableCell>
+                          <TableCell>{pokemon.base_experience}</TableCell>
+                      </TableRow>
+                      <TableRow key='3'>
+                          <TableCell className='font-semibold'>Amistad: </TableCell>
+                          <TableCell>{specie.base_happiness}</TableCell>
+                      </TableRow>
+            
+                      <TableRow key='4'>
+                          <TableCell className='font-semibold'>Crecimiento: </TableCell>
+                          <TableCell>{ growthRateTranslations[specie.growth_rate.name]}</TableCell>
+                      </TableRow>
+            
+                      <TableRow key='5' >
+                          <TableCell className='font-semibold'>Nombres: </TableCell>
+                          <TableCell>
+                            <ul>
+            
+                                <li className='flex items-center gap-x-1'>
+                                      <Image width={20} alt='viva México' src="https://img.icons8.com/?size=512&id=22439&format=png" /> {specie.names[6].name}
+                                </li>
+                                <li className='flex items-center gap-x-1'>
+                                <Image   width={20} height={20} alt="french flag" src="https://img.icons8.com/?size=512&id=15497&format=png" /> {specie.names[4].name}
+                                </li>
+                                <li className='flex items-center gap-x-1'>
+                                <Image   width={20} height={20} alt="german flag" src="https://img.icons8.com/?size=512&id=15502&format=png" /> {specie.names[5].name}
+                                </li>
+                                <li className='flex items-center gap-x-1'>
+                                <Image  width={20} height={20} alt="japan flag" src="https://img.icons8.com/?size=512&id=22435&format=png" /> {specie.names[0].name}
+                                </li>
+                                <li className='flex items-center gap-x-1'>
+                                <Image   width={20} height={20} alt="japan flag" src="https://img.icons8.com/?size=512&id=22435&format=png" /> {specie.names[1].name}
+                                </li>
+            
+            
+                            </ul>
+                          </TableCell>
+                      </TableRow>
+                        </TableBody>
+                      </Table>
+              </div>
+              <div>
+                <h2 className=' text-left text-2xl pl-2 font-inter font-bold mb-2'>Prob. de captura</h2>
+            
+                    <Card className="w-[200px] h-[200px] border-none ">
+                <CardBody className="justify-center items-center pb-0">
+                  <CircularProgress
+                    size='sm'
+                    color={captureProb < 20 ? (captureProb < 10 ? 'danger' : 'warning') : 'success'}
+                    classNames={{
+                      svg: "w-32 h-32 drop-shadow-md",
+            
+                      track: "stroke-white/10",
+            
+            
+            
+                      value: "text-3xl font-semibold text-white",
+                    }}
+                    // Se manda la vida y la tasa de captura del pokemon
+                    value={captureProb}
+            
+            
+                    formatOptions= {{style: 'unit', unit: 'percent'}}
+                    strokeWidth={4}
+                    showValueLabel={true}
+                  />
+                </CardBody>
+                <CardFooter className="justify-center items-center pt-0">
+                  <Chip
+                    classNames={{
+                      base: "border-1 border-white/30",
+                      content: "text-white/90 text-small font-semibold",
+                    }}
+                    variant="bordered"
+                  >
+                    Tasa de captura: {specie.capture_rate}
+                  </Chip>
+                </CardFooter>
+                        </Card>
+                        <h3 className='text-sm font-medium mt-2 pl-2 text-[#9e9e9e] italic'>Vida llena y usando PokeBall</h3>
+            
+              </div>
+              </div>
+              {/* Tabla de crianza */}
+              <div className='w-fit'>
+              <h2 className=' text-left text-2xl pl-2 font-inter font-bold mb-2'>Crianza</h2>
+                    <Table hideHeader aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn>NAME</TableColumn>
+                    <TableColumn>ROLE</TableColumn>
+                  </TableHeader>
+                  <TableBody>
+                    <TableRow key="1">
+                      <TableCell>Grupos huevo: </TableCell>
+                      <TableCell className='text-left'>
+                        {specie.egg_groups.map((group, index) => (
+                          index === (specie.egg_groups.length - 1) ?  <span key={index}>{eggGroupTranslations[group.name]}</span> : <span key={index}>{eggGroupTranslations[group.name]}, </span>
+                        ))}
+                      </TableCell>
+                    </TableRow>
+                    <TableRow key="2">
+                      <TableCell >Genero: </TableCell>
+                      <TableCell >
+                      
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+          </div>
+
+
+
+          
+
+         
+
         </div>
         <div className='flex gap-x-6 items-start mt-4'>
 
