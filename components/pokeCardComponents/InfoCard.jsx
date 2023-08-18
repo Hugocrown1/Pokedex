@@ -35,7 +35,9 @@ export const InfoCard = ({pokemon, specie}) => {
                 
                 <Divider className={cardStyle.divider}/>
 
-                <h3 className='font-semibold'>{specie.genera[5].genus}</h3>
+                
+
+                <h3 className='font-semibold'>{ specie.genera[5]?.genus ?? specie.genera[0].genus }</h3>
               
               
               </CardBody>

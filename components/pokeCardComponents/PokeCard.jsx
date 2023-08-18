@@ -1,8 +1,8 @@
 // import Image from 'next/image'
-import TypeIcon from './TypeIcon';
-import { statTranslations, eggGroupTranslations, growthRateTranslations } from '@utils/translator';
+
+import { statTranslations, generationTranslate, habitatTranslate } from '@utils/translator';
 import statRanker from '@utils/statRanker';
-import captureRate from '@utils/captureRate';
+
 import {
   Table,
   TableHeader,
@@ -13,20 +13,16 @@ import {
 } from "@nextui-org/table";
 
 import {Tabs, Tab} from "@nextui-org/tabs";
-import {Image} from "@nextui-org/image";
 
-import { pokemonTypes } from '@utils/pokeTypes';
-import { cardStyleMapping } from '@utils/pokeTypes';
-import {CircularProgress} from "@nextui-org/progress";
-
-import { IconGenderFemale, IconGenderMale } from '@tabler/icons-react';
 
 import {Progress} from "@nextui-org/progress";
-import {Chip} from "@nextui-org/chip";
-import {Card, CardHeader, CardBody, CardFooter} from "@nextui-org/card";
-import {Divider} from "@nextui-org/divider";
+import {Image} from "@nextui-org/image";
+
 import { DefensesTable } from './DefensesTable';
 import { InfoCard } from './InfoCard';
+import { TrainingTable } from './TrainingTable';
+import { CatchRateTable } from './CatchRateTable';
+import { HatchTable } from './HatchTable';
 
 const PokeCard = ({pokemon, specie, weaknesses}) => {
   
@@ -34,70 +30,45 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
 
   const pokeNumber =`#${pokemon.id.toString().padStart(4, '0')}`
 
-  const cardStyle = cardStyleMapping[pokemon.types[0].type.name];
-
-  let captureProb = captureRate(pokemon.stats[0].base_stat, specie.capture_rate)
-
-  
-  
   
     return (
       <div className="flex-1 break-inside-avoid rounded-lg border border-[#02010a] bg-[#e9e7e7] bg-clip-padding pt-4 pb-4 px-14 backdrop-blur-lg backdrop-filter w-full h-fit mt-10 dark:bg-[#202020]">
         
         <h1 className="italic text-center text-5xl font-inter font-semibold mb-5">{pokeNumber}</h1>
 
-        <div className='flex  justify-start gap-x-8 items-center  h-full'>
+        <div className='flex  justify-start gap-x-2 items-center mb-2  h-full'>
           
           {/* Carta de pokemon */}
           <InfoCard pokemon={pokemon} specie={specie}/>
 
-          <div className='flex flex-col'>
-            <div className='flex flex-row gap-x-4 items-center'>
+          <div className='grid grid-cols-2 gap-x-6 gap-y-3'>
+            
               
-              <div className='flex flex-col font-semibold'>
-              <h2 className=' text-left text-2xl font-inter pl-2 font-bold mb-2'>Datos</h2>
-                  <Table isSticky isStriped className='text-left w-full font-semibold' hideHeader aria-label="Misc table">
-                      <TableHeader>
-                        <TableColumn>DATO</TableColumn>
-                        <TableColumn>INFO</TableColumn>
-                      </TableHeader>
-                    <TableBody >
-                    <TableRow key="1">
-                        <TableCell className='font-semibold'>Habilidades: </TableCell>
-                        <TableCell>
-                        {pokemon.abilities.map((ability, index) => (
-                      <span key={ability.ability.url}>
-                        {ability.is_hidden ? (
-                          <>
-                            {ability.ability.name} (oculta)
-                            {index !== pokemon.abilities.length - 1 && <br/>}
-                          </>
-                        ) : (
-                          <>
-                             {index+1}. {ability.ability.name}
-                            {index !== pokemon.abilities.length - 1 && <br/>}
-                          </>
-                        )}
-                      </span>
-                    ))}
-                        </TableCell>
+              {/* Tabla de datos de entrenamiento */}
+              <TrainingTable pokemon={pokemon} specie={specie}/>
+
+              {/* Tabla de misc */}
+              <div className='w-full h-full'>
+              <h2 className=' text-left text-2xl font-inter pl-2 font-bold mb-2'>Miscelánea</h2>
+                <Table isStriped hideHeader aria-label="Example static collection table">
+                  <TableHeader>
+                    <TableColumn>NAME</TableColumn>
+                    <TableColumn>ROLE</TableColumn>
+                
+                  </TableHeader>
+                  <TableBody>
+
+                  <TableRow key='1' >
+                          <TableCell className='font-semibold'>Introducido en: </TableCell>
+                          <TableCell >{generationTranslate[specie.generation.name]} </TableCell>
                       </TableRow>
-            
-                      <TableRow key='2'>
-                          <TableCell className='font-semibold'>Exp. Base: </TableCell>
-                          <TableCell>{pokemon.base_experience}</TableCell>
+
+                      <TableRow key='2' >
+                          <TableCell className='font-semibold'>Habitat: </TableCell>
+                          <TableCell >{specie.habitat !== null ?  <span>{habitatTranslate[specie.habitat?.name]}</span> : <span>Desconocido</span>} </TableCell>
                       </TableRow>
-                      <TableRow key='3'>
-                          <TableCell className='font-semibold'>Amistad: </TableCell>
-                          <TableCell>{specie.base_happiness}</TableCell>
-                      </TableRow>
-            
-                      <TableRow key='4'>
-                          <TableCell className='font-semibold'>Crecimiento: </TableCell>
-                          <TableCell>{ growthRateTranslations[specie.growth_rate.name]}</TableCell>
-                      </TableRow>
-            
-                      <TableRow key='5' >
+
+                  <TableRow key='3' >
                           <TableCell className='font-semibold'>Nombres: </TableCell>
                           <TableCell>
                             <ul>
@@ -122,103 +93,21 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
                             </ul>
                           </TableCell>
                       </TableRow>
-                        </TableBody>
-                      </Table>
-              </div>
-              <div>
-                <h2 className=' text-left text-2xl pl-2 font-inter font-bold mb-2'>Prob. de captura</h2>
-            
-                    <Card className="w-[200px] h-[200px] border-none ">
-                <CardBody className="justify-center items-center pb-0">
-                  <CircularProgress
-                    size='sm'
-                    color={captureProb < 20 ? (captureProb < 10 ? 'danger' : 'warning') : 'success'}
-                    classNames={{
-                      svg: "w-32 h-32 drop-shadow-md",
-            
-                      track: "stroke-white/10",
-            
-            
-            
-                      value: "text-3xl font-semibold text-white",
-                    }}
-                    // Se manda la vida y la tasa de captura del pokemon
-                    value={captureProb}
-            
-            
-                    formatOptions= {{style: 'unit', unit: 'percent'}}
-                    strokeWidth={4}
-                    showValueLabel={true}
-                  />
-                </CardBody>
-                <CardFooter className="justify-center items-center pt-0">
-                  <Chip
-                    classNames={{
-                      base: "border-1 border-white/30",
-                      content: "text-white/90 text-small font-semibold",
-                    }}
-                    variant="bordered"
-                  >
-                    Tasa de captura: {specie.capture_rate}
-                  </Chip>
-                </CardFooter>
-                        </Card>
-                        <h3 className='text-sm font-medium mt-2 pl-2 text-[#9e9e9e] italic'>Vida llena y usando PokeBall</h3>
-            
-              </div>
-              </div>
-              {/* Tabla de crianza */}
-              <div className='w-fit'>
-              <h2 className=' text-left text-2xl pl-2 font-inter font-bold mb-2'>Crianza</h2>
-                    <Table hideHeader aria-label="Example static collection table">
-                  <TableHeader>
-                    <TableColumn>NAME</TableColumn>
-                    <TableColumn>ROLE</TableColumn>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow key="1">
-                      <TableCell>Grupos huevo: </TableCell>
-                      <TableCell className='text-left'>
-                        {specie.egg_groups.map((group, index) => (
-                          index === (specie.egg_groups.length - 1) ?  
-                          <span key={index}>{eggGroupTranslations[group.name]}</span> 
-                          : 
-                          <span key={index}>{eggGroupTranslations[group.name]}, </span>
-                        ))}
-                      </TableCell>
-                    </TableRow>
-                    <TableRow key="2">
-                      <TableCell >Genero: </TableCell>
-                      <TableCell className='flex flex-row'>
-                         { specie.gender_rate < 0 ? (<span>Sin genero</span>) :
-                          (<>
-                          <IconGenderMale
-                          color='#2137fd'
-                          /> {100 / 8 * (8 - specie.gender_rate ) }%
-                          <Divider orientation="vertical" className='mx-2  h-auto bg-gray-600'/>
-                          <IconGenderFemale
-                          color='#c514e9'
-                          /> { 100 / 8 * specie.gender_rate }%
-                          </>
-                          ) }
-
-                      </TableCell>
-                    </TableRow>
-
-                    <TableRow key="3">
-                      <TableCell >Pasos: </TableCell>
-                      <TableCell className='flex flex-row'>
-                          {255 * (specie.hatch_counter + 1)}
-                      </TableCell>
-                    </TableRow>
                   </TableBody>
                 </Table>
               </div>
+
+              {/* Tabla de crianza */}
+              <HatchTable specie={specie}/>
+
+              {/* Componente de probabilidad de captura */}
+              <CatchRateTable pokemonHP={pokemon.stats[0].base_stat} captureRate={specie.capture_rate}/>
+
+              
+
+
+
           </div>
-
-
-
-          
 
          
 

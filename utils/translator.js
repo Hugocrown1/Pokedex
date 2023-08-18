@@ -38,6 +38,19 @@ const typeTranslations = {
     'indeterminate': 'Amorfo'
   };
 
+  const generationTranslate = {
+    'generation-i': '1ra generación',
+    'generation-ii': '2da generación',
+    'generation-iii': '3ra generación',
+    'generation-iv': '4ta generación',
+    'generation-v': '5ta generación',
+    'generation-vi': '6ta generación',
+    'generation-vii': '7ma generación',
+    'generation-viii': '8va generación',
+    'generation-ix': '9na generación'
+  };
+  
+
   const growthRateTranslations = {
     'slow': 'Lento',
     'medium': 'Medio',
@@ -45,6 +58,18 @@ const typeTranslations = {
     'medium-slow': 'Medio-Lento',
     'slow-then-very-fast': 'Lento y luego Muy Rápido',
     'fast-then-very-slow': 'Rápido y luego Muy Lento',
+  };
+
+  const habitatTranslate = {
+    "cave": "Cueva",
+    "forest": "Bosque",
+    "grassland": "Pradera",
+    "mountain": "Montaña",
+    "rare": "Raro",
+    "rough-terrain": "Campo",
+    "sea": "Mar",
+    "urban": "Urbano",
+    "waters-edge": "Orilla del agua"
   };
 
   const statTranslations = {
@@ -58,4 +83,4 @@ const typeTranslations = {
 
   
 
-  export  {typeTranslations, statTranslations, eggGroupTranslations, growthRateTranslations}
+  export  {typeTranslations, statTranslations, eggGroupTranslations, growthRateTranslations, generationTranslate, habitatTranslate}
