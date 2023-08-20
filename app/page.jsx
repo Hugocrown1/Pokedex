@@ -7,9 +7,12 @@ import Image from 'next/image'
 import Searcher from '@components/Searcher'
 import pokedexService from '@services/pokedex'
 import pokemonService from '@services/pokemon'
+import evolutionService from '@services/evolutionChain'
 import PokeCard from '@components/pokeCardComponents/PokeCard'
 import getWeaknesses from '@utils/getWeaknesses'
 import { useEffect, useState } from 'react'
+
+
 import {Input} from "@nextui-org/input";
 
 
@@ -22,6 +25,8 @@ const Home = () => {
   const [pokeSpecie, setPokeSpecie] = useState(null)
   const [results, setResults] = useState([])
   const [weaknesses, setWeaknesses] = useState(null)
+
+  const [evolutionChain, setEvolutionChain] = useState(null)
 
   useEffect(() => {
     pokedexService.getAll().then(pokemon => {
@@ -49,10 +54,13 @@ const Home = () => {
       
         const pokemonData = await pokemonService.getByName(name);
         const pokemonSpecie = await pokemonService.getSpecie(name);
+
         const pokemonWeaknesses = await getWeaknesses(pokemonData.types, pokemonData.abilities);
-        
+        const evolutionChain = await evolutionService.getChain(pokemonSpecie.evolution_chain.url)
 
         
+
+        setEvolutionChain(evolutionChain)
         setWeaknesses(pokemonWeaknesses)
         setPokemon(pokemonData);
         setPokeSpecie(pokemonSpecie);
@@ -77,7 +85,7 @@ const Home = () => {
           
 
       {pokemonList && (<Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange}/>)}
-      {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses}/>}
+      {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses} evolutionChain={evolutionChain}/>}
       
     </div>
     

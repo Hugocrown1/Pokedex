@@ -24,7 +24,9 @@ import { TrainingTable } from './TrainingTable';
 import { CatchRateTable } from './CatchRateTable';
 import { HatchTable } from './HatchTable';
 
-const PokeCard = ({pokemon, specie, weaknesses}) => {
+import { EvolutionChain } from './EvolutionChain';
+
+const PokeCard = ({pokemon, specie, weaknesses, evolutionChain}) => {
   
 
 
@@ -41,7 +43,7 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
           {/* Carta de pokemon */}
           <InfoCard pokemon={pokemon} specie={specie}/>
 
-          <div className='grid grid-cols-2 gap-x-6 gap-y-3'>
+          <div className='grid grid-cols-2 gap-x-6 items-center justify-center'>
             
               
               {/* Tabla de datos de entrenamiento */}
@@ -178,8 +180,11 @@ const PokeCard = ({pokemon, specie, weaknesses}) => {
           
 
         </div>
+        
 
         </div>
+
+        <EvolutionChain chainData={evolutionChain}/>
 
       </div>
       
