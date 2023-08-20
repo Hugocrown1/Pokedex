@@ -5,11 +5,51 @@ import pokemonServices from '@services/pokemon';
 import {Image} from "@nextui-org/image";
 
 const EvolutionDetails = ({details}) => {
+
+  const relativeAttackMap = {
+    '1': 'Ataque > Defensa',
+    '-1': 'Ataque < Defensa',
+    '0': 'Ataque = Defensa'
+  }
+  
     
     return (
         <div className='flex flex-col items-center'>
               <IconArrowRight />
-              {details.trigger.name === 'level-up' ? <p>Nivel {details.conditions.map((detail, index) => <span key={index}>{detail.value} </span>)}</p> : <p>{details.trigger.name}</p>}
+              {details.trigger.name === 'level-up' ? 
+
+              details.conditions.length === 0 ?
+              <p>level up {details.location?.name}</p>
+
+              :
+              
+              <p>{details.conditions.map((detail, index) => {
+                if( detail.name === 'min_level'){
+                  return <span key={index}>Nivel {detail.value} </span>
+
+                } else if (detail.name === 'min_happiness'){
+                  return <span key={index}> Felicidad {detail.value} </span>
+                } else {
+                  // Caso Hitmonlee
+                  if(detail.name === 'relative_physical_stats'){
+                    return <span key={index}> ( {relativeAttackMap[detail.value]} )</span>
+
+                  } else
+                  return <span key={index}> {detail.name} {detail.value} </span>
+                }
+
+                
+              
+              
+            
+              })}</p> 
+              
+              :  details.trigger.name === 'use-item' ?  <p>use {details.item.name}</p> 
+              
+              : <p> {details.trigger.name} {details.held_item?.name} {details.conditions.map((detail, index) => {
+                <span key={index}>{detail.name}</span>
+              })} </p>
+              }
 
             
               
@@ -17,7 +57,7 @@ const EvolutionDetails = ({details}) => {
     );
   };
 
-export const EvolutionChain = ({chainData}) => {
+export const EvolutionChain = ({chainData, getPokeInfo}) => {
     const [pokemonNames, setPokemonNames] = useState([]);
     const [pokemonImages, setPokemonImages] = useState(null)
 
@@ -118,24 +158,36 @@ export const EvolutionChain = ({chainData}) => {
         }
 
 
-        <div className='flex flex-col items-center'>
-              {pokemonImages?.map(pokemon => {
-        if (evolutionData && pokemon.name === evolutionData.species.name) {
-            return (
-            <Image
-                key={pokemon.name}
-                alt='pokemon-image'
-                height={150}
-                width={150}
-                src={pokemon.image}
-            />
-            );
-        }
-        return null;
-        })}
-            
-            <p>{formatName(evolutionData.species.name)}</p>
-        </div>
+        <button
+        onClick={() => getPokeInfo(evolutionData.species.name)}
+        >
+          <div className='flex flex-col items-center'>
+                {pokemonImages?.map(pokemon => {
+          if (evolutionData && pokemon.name === evolutionData.species.name) {
+              return (
+              
+                <Image
+                    className='p-4'
+                    key={pokemon.name}
+                    alt='pokemon-image'
+                    height={160}
+                    width={160}
+                    src={pokemon.image}
+                    isZoomed
+
+                  
+                
+                
+                />
+              
+              );
+          }
+          return null;
+          })}
+          
+              <p className='font-medium'>{formatName(evolutionData.species.name)}</p>
+          </div>
+        </button>
 
         {evolutionData.hasOwnProperty('evolves_to') &&
             <div>
@@ -157,7 +209,7 @@ export const EvolutionChain = ({chainData}) => {
           
     <h2 className='text-left text-2xl font-inter font-bold mb-2'>Evoluciones</h2>
     
-        <div className='justify-center my-10'>
+        <div className='justify-center my-8'>
           
           {pokemonNames.length === 0 ? 
             <div className='flex flex-col items-center'>

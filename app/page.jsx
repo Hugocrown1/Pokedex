@@ -85,7 +85,7 @@ const Home = () => {
           
 
       {pokemonList && (<Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange}/>)}
-      {pokemon && <PokeCard pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses} evolutionChain={evolutionChain}/>}
+      {pokemon && <PokeCard getPokeInfo={getPokeInfo} pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses} evolutionChain={evolutionChain}/>}
       
     </div>
     

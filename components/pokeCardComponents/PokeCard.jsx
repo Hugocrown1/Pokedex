@@ -26,7 +26,7 @@ import { HatchTable } from './HatchTable';
 
 import { EvolutionChain } from './EvolutionChain';
 
-const PokeCard = ({pokemon, specie, weaknesses, evolutionChain}) => {
+const PokeCard = ({pokemon, specie, weaknesses, evolutionChain, getPokeInfo}) => {
   
 
 
@@ -184,7 +184,7 @@ const PokeCard = ({pokemon, specie, weaknesses, evolutionChain}) => {
 
         </div>
 
-        <EvolutionChain chainData={evolutionChain}/>
+        <EvolutionChain chainData={evolutionChain} getPokeInfo={getPokeInfo}/>
 
       </div>
       
