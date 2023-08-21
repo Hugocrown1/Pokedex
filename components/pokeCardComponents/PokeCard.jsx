@@ -26,7 +26,9 @@ import { HatchTable } from './HatchTable';
 
 import { EvolutionChain } from './EvolutionChain';
 
-const PokeCard = ({pokemon, specie, weaknesses, evolutionChain, getPokeInfo}) => {
+import {Skeleton} from "@nextui-org/skeleton";
+
+const PokeCard = ({pokemon, specie, weaknesses, evolutionChain, getPokeInfo, isLoaded}) => {
   
 
 
@@ -41,13 +43,22 @@ const PokeCard = ({pokemon, specie, weaknesses, evolutionChain, getPokeInfo}) =>
         <div className='flex  justify-start gap-x-2 items-center mb-2  h-full'>
           
           {/* Carta de pokemon */}
-          <InfoCard pokemon={pokemon} specie={specie}/>
+          
+            
+            
+              <InfoCard pokemon={pokemon} specie={specie} isLoaded={isLoaded}/>
+            
+          
 
           <div className='grid grid-cols-2 gap-x-6 items-center justify-center'>
             
               
               {/* Tabla de datos de entrenamiento */}
-              <TrainingTable pokemon={pokemon} specie={specie}/>
+
+              
+              
+                <TrainingTable pokemon={pokemon} specie={specie}/>
+              
 
               {/* Tabla de misc */}
               <div className='w-full h-full'>

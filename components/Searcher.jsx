@@ -33,6 +33,7 @@ const Searcher = ({getPokeInfo, results, onChange }) => {
     }, [results])
 
     const handleSelection = (selectedIndex) => {
+      
       const selectedItem = results[selectedIndex]
       if (!selectedItem) return resetSearchComplete();
       
@@ -101,6 +102,8 @@ const Searcher = ({getPokeInfo, results, onChange }) => {
       <div className="z-10 w-3/4 h-3/4 items-center justify-center">
       <div tabIndex={1} onBlur={resetSearchComplete} onKeyDown={handleKeyDown} className="relative">
         <Input
+        validationState="valid"
+        errorMessage=""
         
           type="text"
           onChange={handleChange}

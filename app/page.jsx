@@ -18,6 +18,8 @@ import {Input} from "@nextui-org/input";
 
 
 
+
+
 const Home = () => {
   
   const [pokemonList, setPokemonList] = useState([])
@@ -25,6 +27,9 @@ const Home = () => {
   const [pokeSpecie, setPokeSpecie] = useState(null)
   const [results, setResults] = useState([])
   const [weaknesses, setWeaknesses] = useState(null)
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  
 
   const [evolutionChain, setEvolutionChain] = useState(null)
 
@@ -51,25 +56,31 @@ const Home = () => {
 
   const getPokeInfo = async (name) => {
     try {
-      
-        const pokemonData = await pokemonService.getByName(name);
-        const pokemonSpecie = await pokemonService.getSpecie(name);
+        setIsLoaded(false);
 
-        const pokemonWeaknesses = await getWeaknesses(pokemonData.types, pokemonData.abilities);
-        const evolutionChain = await evolutionService.getChain(pokemonSpecie.evolution_chain.url)
+        const [pokemonData, pokemonSpecie] = await Promise.all([
+            pokemonService.getByName(name),
+            pokemonService.getSpecie(name)
+        ]);
 
-        
+        const [pokemonWeaknesses, evolutionChain] = await Promise.all([
+            getWeaknesses(pokemonData.types, pokemonData.abilities),
+            evolutionService.getChain(pokemonSpecie.evolution_chain.url)
+        ]);
 
-        setEvolutionChain(evolutionChain)
-        setWeaknesses(pokemonWeaknesses)
         setPokemon(pokemonData);
         setPokeSpecie(pokemonSpecie);
+        setWeaknesses(pokemonWeaknesses);
+        setEvolutionChain(evolutionChain);
+
+        setIsLoaded(true);
     } catch (error) {
-        
         console.error("Error obteniendo información del Pokémon:", error);
-       
     }
 };
+
+
+
 
   
   return (
@@ -85,7 +96,9 @@ const Home = () => {
           
 
       {pokemonList && (<Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange}/>)}
-      {pokemon && <PokeCard getPokeInfo={getPokeInfo} pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses} evolutionChain={evolutionChain}/>}
+      {pokemon && 
+        <PokeCard getPokeInfo={getPokeInfo} pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses} evolutionChain={evolutionChain} isLoaded={isLoaded}/>
+     }
       
     </div>
     
