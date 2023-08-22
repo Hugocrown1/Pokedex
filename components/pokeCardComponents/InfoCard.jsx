@@ -12,6 +12,11 @@ import { color } from 'framer-motion';
 export const InfoCard = ({pokemon, specie, isLoaded}) => {
 
     const cardStyle = cardStyleMapping[pokemon.types[0].type.name];
+    const imageLoad = () => {
+      return isLoaded ?  pokemon.sprites.other['official-artwork'].front_default : null;
+  };
+  
+    
   return (
     <>
           {/* Carta de pokemon */}
@@ -19,21 +24,24 @@ export const InfoCard = ({pokemon, specie, isLoaded}) => {
           <div className='relative items-start w-fit mr-20'>
             
               
-                <Image
-                isBlurred={true}
-                  className='absolute z-10'
-                  alt='official Pokémon artwork'
-                  src={pokemon.sprites.other['official-artwork'].front_default}
-                  width="380"
-                  height="380"
-                  quality={100}
-                  style={{ transform: 'translate(-6%, -10%)', maxWidth: 'none' }}
-                />
+                
+                  {isLoaded && <Image
+                  isBlurred={true}
+                    
+                    className='absolute z-10'
+                    alt='official Pokémon artwork'
+                    src={pokemon.sprites.other['official-artwork'].front_default}
+                    width="380"
+                    height="380"
+                    quality={100}
+                    style={{ transform: 'translate(-6%, -10%)', maxWidth: 'none' }}
+                  />}
+                
               
             
 
             
-            <Skeleton className='rounded-lg bg-transparent ' isLoaded={true} >
+            <Skeleton className='rounded-lg  dark:bg-transparent' isLoaded={isLoaded} >
               <Card className={cardStyle.border}>
               
                 <CardBody className="overflow-visible justify-end items-center py-8">

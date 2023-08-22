@@ -15,6 +15,8 @@ import { useEffect, useState } from 'react'
 
 import {Input} from "@nextui-org/input";
 
+import {Spinner} from "@nextui-org/spinner";
+
 
 
 
@@ -36,7 +38,7 @@ const Home = () => {
   useEffect(() => {
     pokedexService.getAll().then(pokemon => {
       setPokemonList(pokemon)
-      
+      setIsLoaded(true)
     })
     
   }, [])
@@ -87,18 +89,34 @@ const Home = () => {
     
     
     <div className='flex flex-col items-center justify-center'>
+      
       <div className="flex items-center justify-center mt-10 mb-10">
-        <Image className="w-20 h-1/2" alt="Pikachu" src={pikachu} />
+
+        <button onClick={() => getPokeInfo('pikachu')}>
+          <Image className="w-20 h-1/2" alt="Pikachu" src={pikachu} />
+        </button>
         <Image prority="true" className='w-1/2' alt="Pokelogo" src={logo} />
-        <Image className="w-20 h-20" alt="Arcanine" src={arcanine} />
+
+        <button onClick={() => getPokeInfo('arcanine')}>
+          <Image className="w-20 h-20" alt="Arcanine" src={arcanine} />
+        </button>
     
       </div>
           
 
-      {pokemonList && (<Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange}/>)}
+
+         <div className='flex flex-row w-full justify-center relative'>
+           <Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange} isLoaded={isLoaded}/> 
+           {isLoaded ?  <Spinner color='primary' style={{ visibility: 'hidden' }} /> : <Spinner color='primary' />}
+         </div>
+         
+      
+
       {pokemon && 
         <PokeCard getPokeInfo={getPokeInfo} pokemon={pokemon} specie={pokeSpecie} weaknesses={weaknesses} evolutionChain={evolutionChain} isLoaded={isLoaded}/>
      }
+
+
       
     </div>
     

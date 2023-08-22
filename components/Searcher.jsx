@@ -5,7 +5,9 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { SearchIcon } from "./SearchIcon";
 import {Input} from "@nextui-org/react";
 
-const Searcher = ({getPokeInfo, results, onChange }) => {
+
+
+const Searcher = ({getPokeInfo, results, onChange, isLoaded }) => {
   
     const resultContainer = useRef(null)
   
@@ -99,11 +101,11 @@ const Searcher = ({getPokeInfo, results, onChange }) => {
     
   
     return (
-      <div className="z-10 w-3/4 h-3/4 items-center justify-center">
+      <div className="z-10 w-3/4 h-3/4 static mx-4 items-center justify-center">
       <div tabIndex={1} onBlur={resetSearchComplete} onKeyDown={handleKeyDown} className="relative">
         <Input
-        validationState="valid"
-        errorMessage=""
+          isDisabled={!isLoaded}
+        
         
           type="text"
           onChange={handleChange}
@@ -142,6 +144,7 @@ const Searcher = ({getPokeInfo, results, onChange }) => {
             <SearchIcon className="text-black/50 dark:text-white/90 text-slate-400 pointer-events-none flex-shrink-0" />
           }
         />
+
         {/* Search result container */}
          { showResults && (<div className="  w-full absolute mt-2 p-2 text-white font-medium bg-black/95 shadow-lg rounded-lg rounded-br max-h-56 overflow-y-auto ">
         {results.map((pokemon, index) => {

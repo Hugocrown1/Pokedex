@@ -204,7 +204,7 @@ export const EvolutionChain = ({chainData, getPokeInfo}) => {
     
 
   return (
-    <div className='mt-4'>
+    <>
         
           
     <h2 className='text-left text-2xl font-inter font-bold mb-2'>Evoluciones</h2>
@@ -227,7 +227,7 @@ export const EvolutionChain = ({chainData, getPokeInfo}) => {
     
 
    
-  </div>
+  </>
   )
 }
 
