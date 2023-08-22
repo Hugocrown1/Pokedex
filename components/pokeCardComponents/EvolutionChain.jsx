@@ -147,7 +147,7 @@ export const EvolutionChain = ({chainData, getPokeInfo}) => {
 
     const details = findDetails(evolutionData.evolution_details[0])
     return(
-        <div className='flex flex-row justify-center items-center gap-x-14'>
+        <div className='flex flex-col sm:flex-row justify-center items-center gap-x-4'>
         {evolutionData.evolution_details.length !== 0 && 
             
               
@@ -167,7 +167,7 @@ export const EvolutionChain = ({chainData, getPokeInfo}) => {
               return (
               
                 <Image
-                    className='p-4'
+                    className='p-4 w-auto'
                     key={pokemon.name}
                     alt='pokemon-image'
                     height={160}
@@ -209,7 +209,7 @@ export const EvolutionChain = ({chainData, getPokeInfo}) => {
           
     <h2 className='text-left text-2xl font-inter font-bold mb-2'>Evoluciones</h2>
     
-        <div className='justify-center my-8'>
+        <div className='w-auto justify-center my-4'>
           
           {pokemonNames.length === 0 ? 
             <div className='flex flex-col items-center'>

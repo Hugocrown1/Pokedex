@@ -19,15 +19,15 @@ export const CatchRateTable = ({pokemonHP, captureRate}) => {
 
     
   return (
-    <div>
-                <div className='flex flex-row items-center justify-start gap-x-2'>
+    <div >
+                <div className='flex flex-row mx-auto items-center justify-start gap-x-2'>
                   <h2 className=' text-left text-2xl pl-2 font-inter font-bold mb-2'>Prob. de captura</h2>
                    <Tooltip content='La probabilidad de capturar al Pokémon con su salud al máximo utilizando una Pokéball.'>
                      <IconHelpCircleFilled className='mb-1'/>
                    </Tooltip>
                 </div>
             
-                    <Card className="w-[200px] h-[180px] border-none ">
+                    <Card className=" w-full h-full  border-none ">
                 <CardBody className="justify-center items-center pb-0">
                   <CircularProgress
                   aria-label='Catch probability'

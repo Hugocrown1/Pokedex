@@ -21,7 +21,7 @@ export const TrainingTable = ({pokemon, specie}) => {
   } )
 
   return (
-    <div className='flex flex-col font-semibold mb-2'>
+    <div className='w-auto flex flex-col font-semibold mb-2'>
               <h2 className=' text-left text-2xl font-inter pl-2 font-bold mb-2'>Entrenamiento</h2>
                   <Table isSticky isStriped className='text-left w-full font-semibold' hideHeader aria-label="Misc table">
                       <TableHeader>

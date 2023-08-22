@@ -15,7 +15,7 @@ import {
 
 export const HatchTable = ({specie}) => {
   return (
-    <div className='w-fit'>
+    <div className=' sm:w-fit md:w-full'>
     <h2 className=' text-left text-2xl pl-2 font-inter font-bold mb-2'>Crianza</h2>
           <Table isStriped  hideHeader aria-label="Example static collection table">
         <TableHeader>

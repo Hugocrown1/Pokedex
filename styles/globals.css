@@ -19,7 +19,7 @@
 }
 
 /* .main:before {
-  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #fafafa 100%);
+  background: radial-gradient(circle, rgba(2, 0, 36, 0) 0, #000000 100%);
   position: absolute;
   content: "";
   z-index: 2;
@@ -74,8 +74,32 @@
 
 /* Tailwind Styles */
 
+.info-card-xl {
+  @media (min-width: 640px) { 
+    width: 380px;
+   }
+  
+}
+
+.info-card-sm {
+  
+    width: 380px;
+   
+  
+}
+
+@media (max-width: 380px) {
+  /* Tamaño de pantalla pequeño (hasta 768px) */
+  .info-card-sm {
+  
+    width: 280px;
+   
+  
+}
+}
+
 .app {
-  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto mb-16 sm:px-16;
+  @apply relative z-10 flex justify-center items-center flex-col max-w-7xl mx-auto mb-16 px-8 sm:px-16;
 }
 
 .black_btn {
@@ -290,12 +314,21 @@
 
 /* Estilos pokeCard */
 .pokemon-card {
+  
   height: 34rem;
   width: 21rem;
   border-width: medium;
   background-color: transparent;
   padding-top: 1rem/* 16px */;
   padding-bottom: 1rem/* 16px */;
+}
+
+@media (max-width: 380px) {
+  /* Tamaño de pantalla pequeño (hasta 768px) */
+  .pokemon-card {
+    width: 16rem; /* Otra anchura adecuada para tamaños pequeños */
+    height: 30rem; /* Ajustar la altura según el contenido */
+  }
 }
 
 .water-card {

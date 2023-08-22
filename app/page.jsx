@@ -93,21 +93,21 @@ const Home = () => {
       <div className="flex items-center justify-center mt-10 mb-10">
 
         <button onClick={() => getPokeInfo('pikachu')}>
-          <Image className="w-20 h-1/2" alt="Pikachu" src={pikachu} />
+          <Image className=" w-10 sm:w-20 h-1/2" alt="Pikachu" src={pikachu} />
         </button>
         <Image prority="true" className='w-1/2' alt="Pokelogo" src={logo} />
 
         <button onClick={() => getPokeInfo('arcanine')}>
-          <Image className="w-20 h-20" alt="Arcanine" src={arcanine} />
+          <Image className="w-10 sm:w-20 h-1/2" alt="Arcanine" src={arcanine} />
         </button>
     
       </div>
           
 
 
-         <div className='flex flex-row w-full justify-center relative'>
+         <div className='flex gap-y-4 flex-col sm:flex-row w-full justify-center items-center'>
            <Searcher getPokeInfo={getPokeInfo} results={results} onChange={handleChange} isLoaded={isLoaded}/> 
-           {isLoaded ?  <Spinner color='primary' style={{ visibility: 'hidden' }} /> : <Spinner color='primary' />}
+           {isLoaded ?  <Spinner  color='primary' style={{ visibility: 'hidden' }} /> : <Spinner color='primary' />}
          </div>
          
       

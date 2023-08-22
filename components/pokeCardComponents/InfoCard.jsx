@@ -21,18 +21,18 @@ export const InfoCard = ({pokemon, specie, isLoaded}) => {
     <>
           {/* Carta de pokemon */}
 
-          <div className='relative items-start w-fit mr-20'>
+          <div className='items-center justify-center w-fit mx-auto '>
             
               
                 
                   {isLoaded && <Image
                   isBlurred={true}
                     
-                    className='absolute z-10'
+                    className='absolute z-10  info-card-sm sm:info-card-xl'
                     alt='official Pokémon artwork'
                     src={pokemon.sprites.other['official-artwork'].front_default}
-                    width="380"
-                    height="380"
+                    // width="380"
+                    // height="380"
                     quality={100}
                     style={{ transform: 'translate(-6%, -10%)', maxWidth: 'none' }}
                   />}
@@ -63,7 +63,7 @@ export const InfoCard = ({pokemon, specie, isLoaded}) => {
                     </div>
                     <Divider orientation="vertical" className='mx-2  h-auto bg-gray-600'/>
                     <div className='flex flex-col items-center'>
-                      <div className='flex flex-row mb-1'>{pokemon.types.map((type, index) => <TypeIcon key={index} type={type.type.name}/>)}</div>
+                      <div className='flex flex-col sm:flex-row mb-1'>{pokemon.types.map((type, index) => <TypeIcon key={index} type={type.type.name}/>)}</div>
               
                       <Chip className={cardStyle.chip} variant="shadow"><span className='font-semibold'>Tipo</span></Chip>
                     </div>
